@@ -101,21 +101,18 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
         </div>
       </div>
 
-      {/* Custom: Model */}
-      {local.provider === 'custom' && (
-        <div className="animate-[fadeUp_0.3s_forwards]">
-          <label className="block text-[13px] text-text-muted mb-2 font-mono tracking-wider">
-            模型名称
-          </label>
-          <input
-            type="text"
-            value={local.model}
-            onChange={(e) => setLocal({ ...local, model: e.target.value })}
-            placeholder="gpt-4o / deepseek-chat / ..."
-            className="w-full bg-background border border-border rounded-sm px-4 py-2.5 text-text placeholder:text-text-muted/50 focus:outline-none focus:border-gold transition-colors"
-          />
-        </div>
-      )}
+      {/* Model */}
+      <div>
+        <label className="block text-[13px] text-text-muted mb-2 font-mono tracking-wider">
+          模型
+        </label>
+        <input
+          type="text"
+          value={local.model}
+          onChange={(e) => setLocal({ ...local, model: e.target.value })}
+          className="w-full bg-background border border-border rounded-sm px-4 py-2.5 text-text focus:outline-none focus:border-gold transition-colors"
+        />
+      </div>
 
       {/* Status */}
       <div className="text-sm">
