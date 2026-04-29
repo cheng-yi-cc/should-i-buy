@@ -10,8 +10,8 @@ interface SettingsPanelProps {
 
 const PROVIDERS: { key: AIProvider; label: string; defaultModel: string }[] = [
   { key: 'claude', label: 'Claude', defaultModel: 'claude-sonnet-4-6' },
-  { key: 'openai', label: 'OpenAI', defaultModel: 'gpt-4.1' },
-  { key: 'deepseek', label: 'DeepSeek', defaultModel: 'deepseek-v4-flash' },
+  { key: 'openai', label: 'OpenAI', defaultModel: 'gpt-5.5' },
+  { key: 'deepseek', label: 'DeepSeek', defaultModel: 'deepseek-v4-pro' },
   { key: 'custom', label: '自定义', defaultModel: '' },
 ];
 

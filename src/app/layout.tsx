@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Serif_SC } from "next/font/google";
+import ClientGate from "@/components/ClientGate";
 import "./globals.css";
 
 const notoSerif = Noto_Serif_SC({
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="zh-CN" className={`${notoSerif.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <Nav />
-        <main className="flex-1 relative z-[1]">{children}</main>
+        <ClientGate>
+          <main className="flex-1 relative z-[1]">{children}</main>
+        </ClientGate>
         <Footer />
       </body>
     </html>
