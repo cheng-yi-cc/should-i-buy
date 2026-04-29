@@ -34,14 +34,19 @@ export default function DecidePage() {
   const isLast = currentQuestionIndex >= questions.length - 1;
 
   const handleSelect = useCallback(async (answer: string) => {
-    addAnswer({
+    const answerObj = {
       questionId: currentQuestion.id,
       question: currentQuestion.text,
       answer,
-    });
+    };
 
     if (isLast) {
-      // All questions answered — start AI generation
+      // Final answer: add to answers without incrementing index
+      useStore.setState((state) => ({
+        answers: [...state.answers, answerObj],
+      }));
+
+      // Start AI generation
       setIsGenerating(true);
       router.push('/result');
 
@@ -54,7 +59,7 @@ export default function DecidePage() {
         }
 
         const systemPrompt = getSystemPrompt();
-        const allAnswers = [...answers, { questionId: currentQuestion.id, question: currentQuestion.text, answer }];
+        const allAnswers = [...answers, answerObj];
         const userMessage = buildUserMessage(input, allAnswers);
 
         await generateDecision(settings, systemPrompt, userMessage, (chunk) => {
@@ -74,6 +79,8 @@ export default function DecidePage() {
       } finally {
         setIsGenerating(false);
       }
+    } else {
+      addAnswer(answerObj);
     }
   }, [currentQuestion, isLast, addAnswer, answers, input, router, setIsGenerating, setVerdict, appendEssay, setError]);
 
