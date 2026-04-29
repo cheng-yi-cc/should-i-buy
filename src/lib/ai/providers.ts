@@ -43,11 +43,11 @@ export function getProviderBaseUrl(provider: AIProvider): string {
 export function getDefaultModel(provider: AIProvider): string {
   switch (provider) {
     case 'claude':
-      return 'claude-sonnet-4-20250514';
+      return 'claude-sonnet-4-6';
     case 'openai':
-      return 'gpt-4o';
+      return 'gpt-4.1';
     case 'deepseek':
-      return 'deepseek-chat';
+      return 'deepseek-v4-flash';
     case 'custom':
       return '';
   }

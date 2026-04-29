@@ -6,7 +6,7 @@ const AI_SETTINGS_KEY = 'should-i-buy-ai-settings';
 const defaultAISettings: AISettings = {
   provider: 'claude',
   apiKey: '',
-  model: 'claude-sonnet-4-20250514',
+  model: 'claude-sonnet-4-6',
   baseUrl: '',
 };
 

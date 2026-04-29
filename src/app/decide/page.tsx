@@ -25,8 +25,13 @@ export default function DecidePage() {
     return null;
   }
 
-  const isLast = currentQuestionIndex >= questions.length - 1;
   const currentQuestion = questions[currentQuestionIndex];
+
+  if (!currentQuestion) {
+    return null;
+  }
+
+  const isLast = currentQuestionIndex >= questions.length - 1;
 
   const handleSelect = useCallback(async (answer: string) => {
     addAnswer({

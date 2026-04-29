@@ -8,15 +8,24 @@ interface SettingsPanelProps {
   onSave: (settings: AISettings) => void;
 }
 
-const PROVIDERS: { key: AIProvider; label: string }[] = [
-  { key: 'claude', label: 'Claude' },
-  { key: 'openai', label: 'OpenAI' },
-  { key: 'deepseek', label: 'DeepSeek' },
-  { key: 'custom', label: '自定义' },
+const PROVIDERS: { key: AIProvider; label: string; defaultModel: string }[] = [
+  { key: 'claude', label: 'Claude', defaultModel: 'claude-sonnet-4-6' },
+  { key: 'openai', label: 'OpenAI', defaultModel: 'gpt-4.1' },
+  { key: 'deepseek', label: 'DeepSeek', defaultModel: 'deepseek-v4-flash' },
+  { key: 'custom', label: '自定义', defaultModel: '' },
 ];
 
 export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) {
   const [local, setLocal] = useState<AISettings>(settings);
+
+  const handleProviderChange = (provider: AIProvider) => {
+    const providerInfo = PROVIDERS.find((p) => p.key === provider);
+    setLocal({
+      ...local,
+      provider,
+      model: providerInfo?.defaultModel || local.model,
+    });
+  };
 
   const handleSave = () => {
     onSave(local);
@@ -39,7 +48,7 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
         {PROVIDERS.map((p) => (
           <button
             key={p.key}
-            onClick={() => setLocal({ ...local, provider: p.key })}
+            onClick={() => handleProviderChange(p.key)}
             className={`
               px-4 py-2.5 text-sm font-mono transition-colors border-b-2 -mb-px
               ${local.provider === p.key
