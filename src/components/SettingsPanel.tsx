@@ -19,11 +19,12 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
   const [local, setLocal] = useState<AISettings>(settings);
 
   const handleProviderChange = (provider: AIProvider) => {
-    const providerInfo = PROVIDERS.find((p) => p.key === provider);
+    const info = PROVIDERS.find((p) => p.key === provider);
     setLocal({
       ...local,
       provider,
-      model: providerInfo?.defaultModel || local.model,
+      model: info?.defaultModel || '',
+      baseUrl: provider === 'custom' ? local.baseUrl : '',
     });
   };
 
@@ -39,7 +40,7 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
       <div>
         <h2 className="text-xl font-bold text-text">AI 接入配置</h2>
         <p className="text-[13px] text-text-muted mt-2">
-          配置你的 AI 服务，用于生成消费决策分析。
+          选择你的 AI 服务，填入 API Key 即可使用。
         </p>
       </div>
 
@@ -61,6 +62,22 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
           </button>
         ))}
       </div>
+
+      {/* Custom: Base URL */}
+      {local.provider === 'custom' && (
+        <div className="animate-[fadeUp_0.3s_forwards]">
+          <label className="block text-[13px] text-text-muted mb-2 font-mono tracking-wider">
+            接口地址
+          </label>
+          <input
+            type="text"
+            value={local.baseUrl}
+            onChange={(e) => setLocal({ ...local, baseUrl: e.target.value })}
+            placeholder="https://your-api.example.com"
+            className="w-full bg-background border border-border rounded-sm px-4 py-2.5 text-text placeholder:text-text-muted/50 focus:outline-none focus:border-gold transition-colors"
+          />
+        </div>
+      )}
 
       {/* API Key */}
       <div>
@@ -84,18 +101,21 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
         </div>
       </div>
 
-      {/* Model */}
-      <div>
-        <label className="block text-[13px] text-text-muted mb-2 font-mono tracking-wider">
-          模型
-        </label>
-        <input
-          type="text"
-          value={local.model}
-          onChange={(e) => setLocal({ ...local, model: e.target.value })}
-          className="w-full bg-background border border-border rounded-sm px-4 py-2.5 text-text focus:outline-none focus:border-gold transition-colors"
-        />
-      </div>
+      {/* Custom: Model */}
+      {local.provider === 'custom' && (
+        <div className="animate-[fadeUp_0.3s_forwards]">
+          <label className="block text-[13px] text-text-muted mb-2 font-mono tracking-wider">
+            模型名称
+          </label>
+          <input
+            type="text"
+            value={local.model}
+            onChange={(e) => setLocal({ ...local, model: e.target.value })}
+            placeholder="gpt-4o / deepseek-chat / ..."
+            className="w-full bg-background border border-border rounded-sm px-4 py-2.5 text-text placeholder:text-text-muted/50 focus:outline-none focus:border-gold transition-colors"
+          />
+        </div>
+      )}
 
       {/* Status */}
       <div className="text-sm">
