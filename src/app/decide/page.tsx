@@ -52,7 +52,7 @@ export default function DecidePage() {
 
       try {
         const settings = getAISettings();
-        if (!settings.apiKey) {
+        if (!settings.apiKey.trim()) {
           setError('请先在设置页面配置 API Key');
           setIsGenerating(false);
           return;
