@@ -41,5 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 # dev tools
+.claude/
 .playwright-mcp/
 .superpowers/

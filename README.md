@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 该不该买
 
-## Getting Started
+蔡叔（蔡垒磊）认知框架驱动的 AI 消费决策辅助工具。
 
-First, run the development server:
+输入商品信息，回答 5 个追问问题，应用会用蔡叔风格生成一篇买 / 不买的分析文章，并把结果保存在浏览器本地。
+
+## 快速开始
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 http://localhost:3000。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使用流程
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. 首页输入商品名称、价格和纠结描述。
+2. 回答 5 个追问问题。
+3. AI 生成分析文章和买 / 不买判决。
+4. 决策自动保存到历史记录。
 
-## Learn More
+## AI 配置
 
-To learn more about Next.js, take a look at the following resources:
+首次打开网站，或清空浏览器里的 `should-i-buy-ai-settings` 后，应用会弹出配置页。也可以在「设置」页面修改配置。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+支持的 provider：
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Provider | 默认模型 |
+| --- | --- |
+| Claude | `claude-sonnet-4-6` |
+| OpenAI | `gpt-5.5` |
+| DeepSeek | `deepseek-v4-pro` |
+| 自定义 | 留空 |
 
-## Deploy on Vercel
+每个 provider 的 API Key、模型和 Base URL 独立保存；切换当前使用模型时不会把一个 provider 的 Key 显示到另一个 provider 里。配置存储在浏览器 `localStorage`，不会上传到项目服务器。
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 常用命令
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev      # 本地开发
+npm run build    # Next 静态导出构建
+npm run lint     # ESLint
+```
+
+## 技术栈
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Zustand
+- localStorage
+
+## 项目文档
+
+- [架构说明](docs/architecture.md)
+- [运行手册](docs/runbook.md)
