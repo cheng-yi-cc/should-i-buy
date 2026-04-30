@@ -29,9 +29,18 @@ export interface Decision {
 
 export type AIProvider = 'claude' | 'openai' | 'deepseek' | 'custom';
 
+export interface AIProviderConfig {
+  apiKey: string;
+  model: string;
+  baseUrl: string;
+}
+
+export type AIProviderConfigs = Record<AIProvider, AIProviderConfig>;
+
 export interface AISettings {
   provider: AIProvider;
   apiKey: string;
   model: string;
   baseUrl: string;
+  providerConfigs: AIProviderConfigs;
 }
