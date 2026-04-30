@@ -45,9 +45,9 @@ export function getDefaultModel(provider: AIProvider): string {
     case 'claude':
       return 'claude-sonnet-4-6';
     case 'openai':
-      return 'gpt-4.1';
+      return 'gpt-5.5';
     case 'deepseek':
-      return 'deepseek-v4-flash';
+      return 'deepseek-v4-pro';
     case 'custom':
       return '';
   }

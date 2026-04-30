@@ -10,8 +10,8 @@ interface SettingsPanelProps {
 
 const PROVIDERS: { key: AIProvider; label: string; defaultModel: string }[] = [
   { key: 'claude', label: 'Claude', defaultModel: 'claude-sonnet-4-6' },
-  { key: 'openai', label: 'OpenAI', defaultModel: 'gpt-4.1' },
-  { key: 'deepseek', label: 'DeepSeek', defaultModel: 'deepseek-v4-flash' },
+  { key: 'openai', label: 'OpenAI', defaultModel: 'gpt-5.5' },
+  { key: 'deepseek', label: 'DeepSeek', defaultModel: 'deepseek-v4-pro' },
   { key: 'custom', label: '自定义', defaultModel: '' },
 ];
 
@@ -75,12 +75,6 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
             placeholder="sk-..."
             className="flex-1 bg-background border border-border rounded-sm px-4 py-2.5 text-text placeholder:text-text-muted/50 focus:outline-none focus:border-gold transition-colors"
           />
-          <button
-            onClick={handleSave}
-            className="px-5 py-2.5 bg-gold text-background font-bold text-sm rounded-sm hover:opacity-90 transition-opacity flex-shrink-0"
-          >
-            保存
-          </button>
         </div>
       </div>
 
@@ -105,6 +99,13 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
           <span className="text-text-muted font-mono">未配置</span>
         )}
       </div>
+
+      <button
+        onClick={handleSave}
+        className="w-full px-5 py-3 bg-gold text-background font-bold text-sm rounded-sm hover:opacity-90 transition-opacity"
+      >
+        保存配置
+      </button>
     </div>
   );
 }
