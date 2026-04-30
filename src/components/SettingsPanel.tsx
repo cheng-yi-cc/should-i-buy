@@ -10,8 +10,8 @@ interface SettingsPanelProps {
 
 const PROVIDERS: { key: AIProvider; label: string; defaultModel: string }[] = [
   { key: 'claude', label: 'Claude', defaultModel: 'claude-sonnet-4-6' },
-  { key: 'openai', label: 'OpenAI', defaultModel: 'gpt-5.5' },
-  { key: 'deepseek', label: 'DeepSeek', defaultModel: 'deepseek-v4-pro' },
+  { key: 'openai', label: 'OpenAI', defaultModel: 'gpt-4.1' },
+  { key: 'deepseek', label: 'DeepSeek', defaultModel: 'deepseek-v4-flash' },
   { key: 'custom', label: '自定义', defaultModel: '' },
 ];
 
@@ -19,12 +19,11 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
   const [local, setLocal] = useState<AISettings>(settings);
 
   const handleProviderChange = (provider: AIProvider) => {
-    const info = PROVIDERS.find((p) => p.key === provider);
+    const providerInfo = PROVIDERS.find((p) => p.key === provider);
     setLocal({
       ...local,
       provider,
-      model: info?.defaultModel || '',
-      baseUrl: provider === 'custom' ? local.baseUrl : '',
+      model: providerInfo?.defaultModel || local.model,
     });
   };
 
@@ -40,7 +39,7 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
       <div>
         <h2 className="text-xl font-bold text-text">AI 接入配置</h2>
         <p className="text-[13px] text-text-muted mt-2">
-          选择你的 AI 服务，填入 API Key 即可使用。
+          配置你的 AI 服务，用于生成消费决策分析。
         </p>
       </div>
 
@@ -62,22 +61,6 @@ export default function SettingsPanel({ settings, onSave }: SettingsPanelProps) 
           </button>
         ))}
       </div>
-
-      {/* Custom: Base URL */}
-      {local.provider === 'custom' && (
-        <div className="animate-[fadeUp_0.3s_forwards]">
-          <label className="block text-[13px] text-text-muted mb-2 font-mono tracking-wider">
-            接口地址
-          </label>
-          <input
-            type="text"
-            value={local.baseUrl}
-            onChange={(e) => setLocal({ ...local, baseUrl: e.target.value })}
-            placeholder="https://your-api.example.com"
-            className="w-full bg-background border border-border rounded-sm px-4 py-2.5 text-text placeholder:text-text-muted/50 focus:outline-none focus:border-gold transition-colors"
-          />
-        </div>
-      )}
 
       {/* API Key */}
       <div>
